@@ -2,7 +2,7 @@
 
 Clean up your messy drop boxes. 
 
-I the watch functionality of [[Hazel|http://www.noodlesoft.com/hazel.php]] 
+I liked the watch functionality of Hazel [[http://www.noodlesoft.com/hazel.php]]
 and how I could use it to keep my download folder or desktop clean.
 
 What I didn't like: 
