@@ -1,10 +1,15 @@
-#!/bin/env ruby
+#!/usr/bin/env ruby
 
 require 'fileutils'
 
 # Just a little helper to clean up folders
-
-folders = ['/insert/your', '/messy/folders']
+if ARGV.empty?
+  folders = ['/insert/your', '/messy/folders']
+else
+  folders = ARGV.collect do |rel|
+    File.absolute_path(rel)
+  end
+end
 
 folders.each do |folder|
   Dir.foreach(folder) do |file|
