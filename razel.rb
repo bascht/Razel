@@ -1,12 +1,16 @@
 #!/bin/env ruby
 
 require 'fileutils'
+require 'yaml'
 
 # Just a little helper to clean up folders
 
-folders = ['/insert/your', '/messy/folders']
+# configfile = Dir.pwd + '/config.yaml'
+configfile = File.expand_path(File.dirname(__FILE__)) + '/config.yaml'
+config = YAML.load_file(configfile) if File.exists?(configfile)
 
-folders.each do |folder|
+exit if config == nil
+config['folders'].each do |folder|
   Dir.foreach(folder) do |file|
     FileUtils.cd(folder)
 
@@ -16,8 +20,9 @@ folders.each do |folder|
       ext = File.extname(file).downcase
       ext.slice!(0)
       unless ext.empty?
-        FileUtils.mkdir(ext) unless Dir.exists?(ext)
-        FileUtils.move(file, "#{folder}/#{ext}/#{file}")
+        target_dir = "#{folder}/Razel/#{ext}"
+        FileUtils.mkdir(target_dir) unless Dir.exists?(target_dir)
+        FileUtils.move(file, "#{target_dir}/#{file}")
       end
     end
   end
