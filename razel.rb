@@ -1,16 +1,27 @@
-#!/bin/env ruby
+#!/usr/bin/env ruby
 
 require 'fileutils'
 require 'yaml'
 
 # Just a little helper to clean up folders
 
-# configfile = Dir.pwd + '/config.yaml'
+# default config
+config = {"folders" => []}
+ 
+# optional config file
 configfile = File.expand_path(File.dirname(__FILE__)) + '/config.yaml'
 config = YAML.load_file(configfile) if File.exists?(configfile)
 
-exit if config == nil
-config['folders'].each do |folder|
+# command line arguments
+if ARGV.empty?
+  folders = config['folders']
+else
+  folders = ARGV.collect do |rel|
+    File.absolute_path(rel)
+  end
+end
+
+folders.each do |folder|
   Dir.foreach(folder) do |file|
     FileUtils.cd(folder)
 
