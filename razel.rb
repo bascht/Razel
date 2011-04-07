@@ -32,7 +32,7 @@ folders.each do |folder|
       ext.slice!(0)
       unless ext.empty?
         target_dir = "#{folder}/Razel/#{ext}"
-        FileUtils.mkdir(target_dir) unless Dir.exists?(target_dir)
+        FileUtils.mkdir_p(target_dir) unless Dir.exists?(target_dir)
         FileUtils.move(file, "#{target_dir}/#{file}")
       end
     end
